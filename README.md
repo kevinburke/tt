@@ -13,3 +13,22 @@ slow you down.
 ### Install
 
 Add the following to your Makefile:
+
+```
+TT := node_modules/.bin/tt
+
+$(TT):
+ifeq ($(shell uname -s), Darwin)
+	curl --location --silent https://github.com/kevinburke/tt/releases/download/0.3/tt-darwin-amd64 > $(TT)
+else
+	curl --location --silent https://github.com/kevinburke/tt/releases/download/0.3/tt-linux-amd64 > $(TT)
+endif
+	chmod +x $(TT)
+
+test: $(TT)
+	$(TT)
+```
+
+If a user runs `make test`, that will download the appropriate binary and place
+it in `node_modules/.bin`, then run tests. (If a user already has it, it'll just
+run `make test`).
