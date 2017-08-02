@@ -19,13 +19,17 @@ func getMocha(wd string) string {
 	if wd == "" {
 		return "mocha"
 	}
-	path := filepath.Join(wd, "node_modules", ".bin", "mocha")
-	s, err := os.Stat(path)
-	if err != nil {
-		return "mocha"
-	}
-	if s.Mode()&0100 > 0 {
-		return path
+	for i := 0; i < 10; i++ {
+		path := filepath.Join(wd, "node_modules", ".bin", "mocha")
+		s, err := os.Stat(path)
+		if err != nil {
+			wd = filepath.Dir(wd)
+			continue
+		}
+		if s.Mode()&0100 > 0 {
+			return path
+		}
+		break
 	}
 	return "mocha"
 }
