@@ -13,7 +13,7 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-const Version = "0.2"
+const Version = "0.3"
 
 func getMocha(wd string) string {
 	if wd == "" {
