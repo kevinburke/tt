@@ -81,6 +81,10 @@ func main() {
 			if err != nil {
 				return err
 			}
+			idx := strings.Index(path, "/test")
+			if strings.Contains(path[idx:], "node_modules") {
+				return nil
+			}
 			if filepath.Ext(path) == ".js" {
 				files = append(files, path)
 			}
